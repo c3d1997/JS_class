@@ -17,13 +17,14 @@
                 position: absolute;
                 width: 50px;
                 height: 50px;
-                /*border-radius: 50%;*/
+                border-radius: 50%;
                 border: 1px solid black;
                 background-color: rgb(252, 80, 46);
                 color: white;
                 font-weight: 600;
                 text-align: center;
                 line-height: 50px;
+                transition: 1s;
             }
         </style>
     </head>
@@ -36,16 +37,44 @@
 
             const ballNum = 12;
             const unitAng = Math.PI*2 / ballNum;
+            const balls = [];
+            let isOpened = false;  // 一開始選單是收起來的
 
             for(let i=0; i<ballNum; i++){
                 const b = $(`<div class="ball">${i+1}</div>`);
-                const x = 400 + 250*Math.cos(unitAng*i);
-                const y = 300 + 250*Math.sin(unitAng*i);
-                b.css({left: x, top: y});
-
-
+                b.css({left: 375, top: 275});
+                balls.push({
+                    el: b,
+                    bx: 375,
+                    by: 275,
+                    ex: 400 - 25 + 250*Math.cos(unitAng*i),
+                    ey: 300 - 25 + 250*Math.sin(unitAng*i),
+                }); // 放到陣列裡
                 rect.append(b);
             }
+
+            const toggleMenu = () => {
+                isOpened = ! isOpened;
+
+                if(isOpened){
+                    balls.forEach((obj, i)=>{
+                        setTimeout(()=>{
+                            obj.el.css({left: obj.ex, top: obj.ey})
+                        }, i*50);
+                    });
+                } else {
+                    balls.forEach((obj, i)=>{
+                        setTimeout(()=>{
+                            obj.el.css({left: obj.bx, top: obj.by})
+                        }, i*50);
+                    });
+                }
+
+            };
+            
+
+            
+
         </script>
     </body>
 </html>
