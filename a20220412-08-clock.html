@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <style>
+        .clock {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            border: black 1px solid;
+            background-color: rgb(183, 248, 251);
+            border-radius: 50%;
+        }
+        .hand {
+            position: absolute;
+            left: 300px;
+            top: 300px;
+        }
+        .hand-sec {
+            position: absolute;
+            width: 4px;
+            height: 200px;
+            background-color: red;
+            left: -2px;
+            top: -200px;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="clock">
+            <div class="hand" id="sec-hand">
+                <div class="hand-sec"></div>
+            </div>
+        </div>
+
+        <script src="js/jquery-3.6.0.js"></script>
+        <script>
+            const clock = $('.clock');
+            const sec_hand = $('#sec-hand');
+
+            // sec_hand.css('transform', 'rotate(30deg)');
+            const showClock = ()=>{
+                const now = new Date();
+                const s = now.getSeconds();
+                sec_hand.css('transform', `rotate(${s*6}deg)`);
+
+                setTimeout(showClock, 1000);
+            }
+            showClock();
+
+        </script>
+    </body>
+</html>
